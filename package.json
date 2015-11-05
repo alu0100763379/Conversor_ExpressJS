@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "node index.js",
-    "view": "open localhost:8080"
+    "view": "open http://10.6.128.78:localhost:8080"
   },
   "author": "",
   "license": "ISC"
