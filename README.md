@@ -4,6 +4,6 @@ Sexta práctica de la asignatura de Sistemas y Tecnologías Web donde se modific
 
 Datos Adicionales 
 ----------------------------------------
-Enlace a mi página personal: http://alu0100763379.github.io/
-Enlace a la práctica: http://10.6.128.78:8080
-Contacto: alu0100763379@ull.edu.es
+- Enlace a mi página personal: http://alu0100763379.github.io/
+- Enlace a la práctica: http://10.6.128.78:8080
+- Contacto: alu0100763379@ull.edu.es
