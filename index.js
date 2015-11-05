@@ -2,6 +2,7 @@ var express = require('express')
 var app = express()
 // https://nodejs.org/api/path.html
 var path = require('path');
+var temperatura = require("./temperature.js");
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 // set the view engine to ejs
@@ -27,18 +28,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // A browser's default method is 'GET', so this
 // is the route that express uses when we visit
 // our site initially.
-app.get('/', function(req, res){
-	// The form's action is '/' and its method is 'POST',
-	// so the `app.post('/', ...` route will receive the
-	// result of our form
-	res.render('body', { title: "form"});
+app.get('/', function(req, final){
+	final.render('index');
 });
 // This route receives the posted form.
 // As explained above, usage of 'body-parser' means
 // that `req.body` will be filled in with the form elements
-app.post('/', function(req, res){
-	var userName = req.body.userName;
-	res.render('greet', {userName: userName, title: 'greet'});
+
+app.post('/', function(req, final){
+	var temperature =  new temperatura();
+	temperature.initialize(req.body.ini_temp)
+	var valor_final = temperature.calculate();
+	final.render('final', {respuesta: valor_final});
 });
 app.listen(app.get('port'), function() {
 console.log("Node app is running at localhost:" + app.get('port'));

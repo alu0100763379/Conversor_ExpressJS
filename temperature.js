@@ -50,46 +50,49 @@ Temperatura.prototype.convert_kelvin_to_celsius = function(){
   return (this.get_num() - 273.15); 
 }
 
-function calculate(){
+Temperatura.prototype.initialize = function(temp){
+	var regexp = /([+-]?\d+(?:\.\d*)?(?:\s*[eE]\d+)?)\s*([fFcCkK])/
+	var m = temp.match(regexp);
+	if(m){
+		m[1] = parseFloat(m[1]);
+		this.set_tipo(m[2]);
+		this.set_num(m[1]);
+	}
+}
+
+Medida.prototype.calculate = function(){
     var result1 = new Temperatura();
     var result2 = new Temperatura();
-    var temp = original.value;
 
-    if(temp){
-      var regexp = /([-+]?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)\s*([fFcCkK])/;
-      var m = temp.match(regexp);
-
-      if(m){
-        var cnv_tmp = new Temperatura();
-
-        cnv_tmp.set_num(parseFloat(m[1]));
-        cnv_tmp.set_tipo(m[2]);
-
-        if (cnv_tmp.get_tipo() == 'c' || cnv_tmp.get_tipo() == 'C') {
-          result1.set_num(cnv_tmp.convert_celsius_to_farenheit());
-          result1.set_tipo("Fahrenheit");
-          result2.set_num(cnv_tmp.convert_celsius_to_kelvin());
-          result2.set_tipo("Kelvin");
-        }
-        if (cnv_tmp.get_tipo() == 'f' || cnv_tmp.get_tipo() == 'F') {
-          result1.set_num(cnv_tmp.convert_farenheit_to_celsius());
-          result1.set_tipo("Celsius");
-          result2.set_num(cnv_tmp.convert_farenheit_to_kelvin());
-          result2.set_tipo("Kelvin");
-        }
-        if (cnv_tmp.get_tipo() == 'k' || cnv_tmp.get_tipo() == 'K') {
-          result1.set_num(cnv_tmp.convert_kelvin_to_celsius());
-          result1.set_tipo("Celsius");
-          result2.set_num(cnv_tmp.convert_kelvin_to_farenheit());
-          result2.set_tipo("Fahrenheit");
-        }
-        
+        switch(this.get_tipo()){
+          case "c":
+          case "C":
+            result1.set_num(this.convert_celsius_to_farenheit());
+            result1.set_tipo("Fahrenheit");
+            result2.set_num(this.convert_celsius_to_kelvin());
+            result2.set_tipo("Kelvin");
+            break;
+          case "f":
+          case "F":
+            result1.set_num(this.convert_farenheit_to_celsius());
+            result1.set_tipo("Celsius");
+            result2.set_num(this.convert_farenheit_to_kelvin());
+            result2.set_tipo("Kelvin");
+            break;
+          case "k":
+          case "K":
+            result1.set_num(this.convert_kelvin_to_celsius());
+            result1.set_tipo("Celsius");
+            result2.set_num(this.convert_kelvin_to_farenheit());
+            result2.set_tipo("Fahrenheit");
+            break;
+	  default:
+	    return("ERROR! Intenta poner algo como: '-4.2C'");
+	    break;	
+        }     
         result1 = result1.get_num() + " " + result1.get_tipo();
         result2 = result2.get_num() + " " + result2.get_tipo();
-        converted.innerHTML = result1 + " || " + result2;
-      }
-      else {
-        converted.innerHTML = "ERROR! Intenta poner algo como: '-4.2C'";
-      }
-    }
+        return(result1 + " || " + result2);
 }
+
+module.exports = Temperatura;
