@@ -11,8 +11,14 @@
   "devDependencies": {},
   "scripts": {
     "test": "node index.js",
-    "view": "open http://10.6.128.78:localhost:8080"
+    "view": "open http://localhost:8080"
   },
+
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/alu0100763379/Conversor_ExpressJS.git"
+  },
+
   "author": "",
   "license": "ISC"
 }
